@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
 
 interface ImageData {
@@ -47,7 +47,7 @@ export default function Home() {
                 alt={image.name}
                 width={600}
                 height={600}
-                priority // Add priority for above the fold image
+                priority
                 style={{ width: "auto", height: "auto" }}
               />
               <div className="p-4">

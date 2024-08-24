@@ -1,4 +1,3 @@
-// app/images/[id]/page.tsx
 import { createClient } from "@supabase/supabase-js";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +12,7 @@ interface ImageData {
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
 
 async function getImage(id: string) {
@@ -27,22 +26,25 @@ async function getImage(id: string) {
   return data;
 }
 
-async function getSimilarImages(embedding: number[], description: string): Promise<ImageData[]> {
-    try {
-      const { data, error } = await supabase.rpc("match_images", {
-        query_embedding: embedding,
-        query_description: description,
-        match_threshold: 0.5,
-        match_count: 3
-      });
-  
-      if (error) throw error;
-      return data || [];
-    } catch (error) {
-      console.error("Error fetching similar images:", error);
-      return [];
-    }
+async function getSimilarImages(
+  embedding: number[],
+  description: string,
+): Promise<ImageData[]> {
+  try {
+    const { data, error } = await supabase.rpc("match_images", {
+      query_embedding: embedding,
+      query_description: description,
+      match_threshold: 0.5,
+      match_count: 3,
+    });
+
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error("Error fetching similar images:", error);
+    return [];
   }
+}
 
 export default async function ImageDetails({
   params,
@@ -50,7 +52,10 @@ export default async function ImageDetails({
   params: { id: string };
 }) {
   const image = await getImage(params.id);
-  const similarImages = await getSimilarImages(image.embedding, image.description);
+  const similarImages = await getSimilarImages(
+    image.embedding,
+    image.description,
+  );
 
   return (
     <div className="container mx-auto px-4">

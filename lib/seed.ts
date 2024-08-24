@@ -28,9 +28,9 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 async function processImage(imageUrl: string): Promise<Buffer> {
   const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
   return sharp(response.data)
-    .resize(224, 224) // Pienennetään kuva vielä pienemmäksi
+    .resize(224, 224)
     .toFormat("jpeg")
-    .jpeg({ quality: 50 }) // Pienennetään laatua enemmän
+    .jpeg({ quality: 50 })
     .toBuffer();
 }
 
