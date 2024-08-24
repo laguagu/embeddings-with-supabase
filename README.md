@@ -27,8 +27,11 @@ yarn dev
 pnpm dev
 # or
 bun dev
+```
 
 Then, run the development server:
+
+```bash
 npm run dev
 # or
 yarn dev
