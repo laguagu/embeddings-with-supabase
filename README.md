@@ -1,4 +1,19 @@
+# Embeddings with Supabase
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Project Description
+
+This project integrates with Supabase to manage and search for images based on their embeddings and descriptions. It includes functionality to:
+
+1. **Store Images**: Upload and store images along with their metadata in a Supabase database.
+2. **Search Similar Images**: Use a PostgreSQL function to find images that are similar to a given image based on its embedding vector and description.
+3. **Display Image Gallery**: Show a gallery of images and allow users to view details and similar images.
+
+### Key Functions
+
+- **match_images**: A PostgreSQL function that retrieves images similar to a given image based on its embedding vector and description.
+- **word_similarity**: A helper function that calculates the similarity between two text descriptions.
 
 ## Getting Started
 
@@ -12,25 +27,37 @@ yarn dev
 pnpm dev
 # or
 bun dev
+
+Then, run the development server:
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Environment Variables
 
-## Learn More
+Rename `env.example` to `.env.local` in the root of your project to add the following environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+OPENAI_API_KEY=your-openai-api-key
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Seeding the Database
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To seed the database with initial data, run:
 
-## Deploy on Vercel
+```bash
+npm run seed-db
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This will execute the script located at lib/seed.ts.
